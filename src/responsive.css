@@ -1,0 +1,252 @@
+/* ============================================
+   ESTILOS RESPONSIVE GLOBALES
+   ============================================ */
+
+/* FOOTER RESPONSIVE */
+.footer {
+  background: rgba(6, 0, 16, 0.8);
+  border-top: 1px solid rgba(132, 0, 255, 0.2);
+  color: #a0a0a0;
+  font-size: clamp(13px, 3.5vw, 15px);
+  margin-top: auto;
+}
+
+.footer a {
+  color: rgba(132, 0, 255, 1);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.footer p {
+  margin: clamp(0.4rem, 1.5vw, 0.6rem) 0;
+}
+
+/* CONTAINER RESPONSIVE */
+.container {
+  padding-left: clamp(0.75rem, 3vw, 1.5rem);
+  padding-right: clamp(0.75rem, 3vw, 1.5rem);
+}
+
+/* IMÁGENES RESPONSIVAS */
+.img-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: clamp(1rem, 3vw, 2rem);
+  width: 100%;
+}
+
+.img-header img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* BUTTONS RESPONSIVE */
+button, .btn {
+  padding: clamp(0.4rem, 1vw, 0.75rem) clamp(0.8rem, 2vw, 1.5rem);
+  font-size: clamp(12px, 2vw, 16px);
+}
+
+/* TEXTO RESPONSIVO - MÁS LEGIBLE */
+h1 {
+  font-size: clamp(28px, 8vw, 52px);
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: clamp(22px, 6vw, 36px);
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: clamp(18px, 5vw, 28px);
+  line-height: 1.2;
+}
+
+p {
+  font-size: clamp(14px, 2.5vw, 18px);
+  line-height: 1.6;
+}
+
+/* NAVBAR RESPONSIVO - MÁS LEGIBLE */
+.navbar-brand {
+  font-size: clamp(18px, 5vw, 32px) !important;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* TARJETAS Y GRILLAS */
+@media (max-width: 575px) {
+  .card-grid {
+    gap: 0.5rem !important;
+  }
+
+  .magic-bento-card {
+    min-height: 150px;
+  }
+}
+
+/* SCROLL SUAVE */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ACCESIBILIDAD */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* MODO OSCURO (fallback) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: #060010;
+    color: #e0e0e0;
+  }
+}
+
+/* VIEWPORT FIX PARA MÓVILES */
+@viewport {
+  width: device-width;
+}
+
+/* ZOOM LÍMITES */
+@media (max-width: 480px) {
+  /* Evita que algunos elementos se vuelvan muy pequeños */
+  .section-title {
+    min-font-size: 18px;
+  }
+
+  .magic-bento-card__title {
+    min-font-size: 14px;
+  }
+}
+
+/* TABLET PEQUEÑO */
+@media (min-width: 480px) and (max-width: 767px) {
+  body {
+    font-size: 15px;
+  }
+}
+
+/* TABLET GRANDE */
+@media (min-width: 768px) and (max-width: 1023px) {
+  body {
+    font-size: 15px;
+  }
+}
+
+/* DESKTOP PEQUEÑO */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+/* DESKTOP GRANDE */
+@media (min-width: 1440px) {
+  body {
+    font-size: 18px;
+  }
+
+  /* Menos margenes en pantallas grandes */
+  .container {
+    max-width: 1200px;
+  }
+}
+
+/* LANDSCAPE MOBILE */
+@media (max-height: 500px) and (orientation: landscape) {
+  .navbar-fixed-container {
+    padding-bottom: 40px;
+  }
+
+  .container {
+    padding-top: 60px !important;
+  }
+}
+
+/* IMPRESIÓN */
+@media print {
+  .navbar-fixed-container,
+  .footer {
+    display: none;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+}
+
+/* DETAILS PAGE HEADER: single-row layout and responsive buttons */
+.header-details {
+  gap: 0.75rem;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.details-title {
+  flex: 1 1 auto;
+  font-size: clamp(18px, 5vw, 36px);
+  margin: 0 0.75rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fav-btn {
+  border-radius: 50px;
+  min-width: 140px;
+  padding: 0.5rem 1rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fav-btn i {
+  font-size: 1.1rem;
+}
+
+.back-btn {
+  flex: 0 0 auto;
+  padding: 0.45rem 0.85rem;
+}
+
+@media (max-width: 576px) {
+  .header-details {
+    gap: 0.5rem;
+  }
+
+  .details-title {
+    font-size: clamp(18px, 6vw, 22px);
+    margin: 0 0.5rem;
+  }
+
+  .fav-btn {
+    min-width: 44px;
+    padding: 0.45rem 0.6rem;
+  }
+
+  .fav-btn span { /* ocultar texto en móviles, solo icono */
+    display: none !important;
+  }
+}
+

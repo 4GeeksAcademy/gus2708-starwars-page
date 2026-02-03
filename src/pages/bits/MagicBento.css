@@ -1,0 +1,337 @@
+:root {
+  --white: hsl(0, 0%, 100%);
+  --purple-primary: rgba(132, 0, 255, 1);
+  --border-color: #392e4e;
+  --background-dark: #060010;
+}
+
+/* CONTENEDOR: Responsive Grid - MÁS GRANDE EN MÓVILES */
+.card-grid {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  justify-content: center;
+  /* Mobile: 1 columna GRANDE */
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+}
+
+/* Tablet pequeño: 2 columnas */
+@media (min-width: 480px) {
+  .card-grid {
+    gap: 0.9rem;
+    padding: 0.9rem;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  }
+}
+
+/* Tablet: 2-3 columnas */
+@media (min-width: 576px) {
+  .card-grid {
+    gap: 1rem;
+    padding: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+
+/* Tablet grande: 3 columnas */
+@media (min-width: 768px) {
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  }
+}
+
+/* Desktop: 4 columnas */
+@media (min-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+.magic-bento-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  /* Mantenemos el cuadrado perfecto */
+  aspect-ratio: 1 / 1; 
+  width: 100%;
+  padding: 1.3rem;
+  border-radius: 15px;
+  border: 1px solid var(--border-color);
+  background: var(--background-dark);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  
+  /* Forzamos que todos ocupen 1 sola celda */
+  grid-column: span 1 !important;
+  grid-row: span 1 !important;
+}
+
+/* Tablet pequeño */
+@media (min-width: 480px) {
+  .magic-bento-card {
+    padding: 1.5rem;
+    border-radius: 17px;
+  }
+}
+
+/* Tablet */
+@media (min-width: 576px) {
+  .magic-bento-card {
+    padding: 1.7rem;
+    border-radius: 18px;
+  }
+}
+
+/* Tablet grande */
+@media (min-width: 768px) {
+  .magic-bento-card {
+    padding: 1.8rem;
+    border-radius: 18px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .magic-bento-card {
+    padding: 2rem;
+    border-radius: 20px;
+  }
+
+  .magic-bento-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--purple-primary);
+  }
+}
+
+/* TIPOGRAFÍA RESPONSIVA - MUCHO MÁS GRANDE EN MÓVILES */
+.magic-bento-card__title {
+  font-weight: 600;
+  font-size: 18px;
+  margin: 0 0 0.4em;
+  color: var(--white);
+  line-height: 1.1;
+}
+
+@media (min-width: 480px) {
+  .magic-bento-card__title {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 576px) {
+  .magic-bento-card__title {
+    font-size: 22px;
+  }
+}
+
+@media (min-width: 768px) {
+  .magic-bento-card__title {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .magic-bento-card__title {
+    font-size: 26px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .magic-bento-card__title {
+    font-size: 28px;
+  }
+}
+
+.magic-bento-card__description {
+  font-size: 15px;
+  line-height: 1.4;
+  opacity: 0.85;
+  color: #a0a0a0;
+}
+
+@media (min-width: 480px) {
+  .magic-bento-card__description {
+    font-size: 15.5px;
+  }
+}
+
+@media (min-width: 576px) {
+  .magic-bento-card__description {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 768px) {
+  .magic-bento-card__description {
+    font-size: 16.5px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .magic-bento-card__description {
+    font-size: 17px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .magic-bento-card__description {
+    font-size: 18px;
+  }
+}
+
+.magic-bento-card__label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--purple-primary);
+  margin-bottom: 0.5em;
+}
+
+@media (min-width: 480px) {
+  .magic-bento-card__label {
+    font-size: 12.5px;
+    margin-bottom: 0.6em;
+  }
+}
+
+@media (min-width: 576px) {
+  .magic-bento-card__label {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.7em;
+  }
+}
+
+@media (min-width: 768px) {
+  .magic-bento-card__label {
+    font-size: 13.5px;
+    margin-bottom: 0.75em;
+  }
+}
+
+@media (min-width: 1024px) {
+  .magic-bento-card__label {
+    font-size: 14px;
+    letter-spacing: 0.13em;
+    margin-bottom: 0.8em;
+  }
+}
+
+@media (min-width: 1440px) {
+  .magic-bento-card__label {
+    font-size: 15px;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.8em;
+  }
+}
+
+/* TÍTULOS DE SECCIÓN RESPONSIVOS - MÁS LEGIBLES */
+.section-header {
+  max-width: 1100px;
+  margin: 1rem auto 1.2rem auto;
+  padding: 0 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (min-width: 480px) {
+  .section-header {
+    gap: 10px;
+  }
+}
+
+@media (min-width: 576px) {
+  .section-header {
+    padding: 0 1rem;
+    gap: 12px;
+    margin: 1rem auto 1.5rem auto;
+  }
+}
+
+@media (min-width: 768px) {
+  .section-header {
+    gap: 14px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-header {
+    gap: 15px;
+  }
+}
+
+.section-title {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+}
+
+@media (min-width: 480px) {
+  .section-title {
+    font-size: 26px;
+  }
+}
+
+@media (min-width: 576px) {
+  .section-title {
+    font-size: 28px;
+  }
+}
+
+@media (min-width: 768px) {
+  .section-title {
+    font-size: 30px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-title {
+    font-size: 32px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .section-title {
+    font-size: 34px;
+  }
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding: 0 1rem;
+}
+
+.section-title {
+    color: #fff;
+    font-size: 32px; /* Un poco más grande que los nombres de las cartas */
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+    white-space: nowrap;
+    /* Efecto de brillo sutil en el texto */
+    text-shadow: 0 0 15px rgba(132, 0, 255, 0.4);
+}
+
+.section-line {
+    height: 1px;
+    flex-grow: 1;
+    background: linear-gradient(90deg, rgba(132, 0, 255, 0.8), transparent);
+    margin-bottom: 1rem;
+}
+
+@media (min-width: 576px) {
+  .section-line {
+    min-width: 50px;
+  }
+}
