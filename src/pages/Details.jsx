@@ -5,7 +5,7 @@ import MagicBento from "./bits/MagicBento.jsx";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
- 
+
 
 export const Details = () => {
     const { type, id } = useParams();
@@ -33,7 +33,7 @@ export const Details = () => {
     // Función para manejar el clic en el botón de favoritos
     const handleFavoriteClick = () => {
         if (!item) return;
-        
+
         const favItem = {
             ...item.properties,
             uid: id,
@@ -97,7 +97,7 @@ export const Details = () => {
 
                 <h1 className="details-title m-0 text-white text-center text-truncate">{item.properties.name}</h1>
 
-                <button 
+                <button
                     className={`btn fav-btn ${isFavorite ? 'btn' : 'btn-outline-light'}`}
                     onClick={handleFavoriteClick}
                     aria-pressed={isFavorite}
@@ -111,19 +111,24 @@ export const Details = () => {
             <div className="row g-4">
                 {/* Columna de Imagen */}
                 <div className="col-lg-4">
-                    <div className="skeleto-container mb-3">
-                        <Skeleton count={10} style={{opacity: "0.3"}}/>
-                    </div>
                     <div className="p-2 rounded-4 border border-secondary bg-dark shadow-lg sticky-top" style={{ top: "120px" }}>
-                        <img
-                            src={`https://starwars-visualguide.com/assets/img/${type === 'people' ? 'characters' : type}/${id}.jpg`}
-                            className="img-fluid rounded-3 w-100"
-                            onError={(e) => e.target.src = "https://starwars-visualguide.com/assets/img/placeholder.jpg"}
-                            alt={item.properties.name}
-                        />
-                        <div className="p-3 text-white-50">
-                            <small className="fst-italic">{item.description}</small>
-                        </div>
+                        {loading ? (
+                            <div className="skeleto-container mb-3">
+                                <Skeleton count={10} style={{ opacity: "0.3" }} />
+                            </div>
+                        ) : (
+                            <>
+                                <img
+                                    src={`https://starwars-visualguide.com/assets/img/${type === 'people' ? 'characters' : type}/${id}.jpg`}
+                                    className="img-fluid rounded-3 w-100"
+                                    onError={(e) => e.target.src = "https://starwars-visualguide.com/assets/img/placeholder.jpg"}
+                                    alt={item.properties.name}
+                                />
+                                <div className="p-3 text-white-50">
+                                    <small className="fst-italic">{item.description}</small>
+                                </div>
+                            </>
+                        )}
                     </div>
                 </div>
 

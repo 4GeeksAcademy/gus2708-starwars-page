@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState, useRef, useId } from 'react';
+import { useEffect, useState, useRef, useId, useLayoutEffect } from 'react';
 import './GlassSurface.css';
 
 const GlassSurface = ({
@@ -30,6 +30,7 @@ const GlassSurface = ({
   const blueGradId = `blue-grad-${uniqueId}`;
 
   const [svgSupported, setSvgSupported] = useState(false);
+  const [backdropSupported, setBackdropSupported] = useState(true);
 
   const containerRef = useRef(null);
   const feImageRef = useRef(null);
@@ -135,9 +136,59 @@ const GlassSurface = ({
     setTimeout(updateDisplacementMap, 0);
   }, [width, height]);
 
-  useEffect(() => {
-    setSvgSupported(supportsSVGFilters());
+  // Ejecutar antes del paint para que la clase se aplique en la primera carga
+  useLayoutEffect(() => {
+    const svg = supportsSVGFilters();
+
+    // Detectar navegadores iOS no-Safari (Chrome/Firefox/Edge en iOS usan WKWebView)
+    let isIOS = false;
+    let isThirdPartyOnIOS = false;
+    if (typeof navigator !== 'undefined') {
+      isIOS = /iP(ad|hone|od)/i.test(navigator.userAgent);
+      isThirdPartyOnIOS = /CriOS|FxiOS|EdgiOS/i.test(navigator.userAgent);
+    }
+
+    const backdrop = supportsBackdropFilter();
+
+    // IMPORTANTE: iOS Safari no aplica backdrop-filter en el primer paint,
+    // incluso si lo reporta como soportado. Forzar fallback gradient en todo iOS.
+    const backdropFinal = isIOS ? false : backdrop;
+
+    setSvgSupported(svg);
+    setBackdropSupported(backdropFinal);
+
+    // Forzar repintado / compositing en algunos WebViews para asegurar
+    // que `backdrop-filter` se aplique en el primer paint.
+    try {
+      const el = containerRef.current;
+      if (el) {
+        el.style.webkitTransform = 'translateZ(0)';
+        el.style.transform = 'translateZ(0)';
+        // leer offsetHeight para forzar reflow
+        void el.offsetHeight;
+        setTimeout(() => {
+          el.style.webkitTransform = '';
+          el.style.transform = '';
+        }, 50);
+      }
+    } catch (e) {}
+
+    // Debug: loguear info para inspección remota en móvil
+    try {
+      // eslint-disable-next-line no-console
+      if (process.env.NODE_ENV === 'development') {
+        console.log('GlassSurface support:', { svgSupported: svg, backdropDetected: backdrop, backdropFinal, userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : 'n/a', isIOS, isThirdPartyOnIOS, reason: isIOS ? 'iOS always uses fallback (backdrop-filter no renders on first paint)' : '' });
+      }
+    } catch (e) {}
   }, []);
+
+  const supportsBackdropFilter = () => {
+    if (typeof document === 'undefined') return false;
+    const div = document.createElement('div');
+    div.style.webkitBackdropFilter = 'blur(1px)';
+    div.style.backdropFilter = 'blur(1px)';
+    return (div.style.webkitBackdropFilter !== '') || (div.style.backdropFilter !== '');
+  };
 
   const supportsSVGFilters = () => {
     if (typeof window === 'undefined' || typeof document === 'undefined') {
@@ -170,7 +221,7 @@ const GlassSurface = ({
   return (
     <div
       ref={containerRef}
-      className={`glass-surface ${svgSupported ? 'glass-surface--svg' : 'glass-surface--fallback'} ${className}`}
+      className={`glass-surface ${svgSupported ? 'glass-surface--svg' : 'glass-surface--fallback'} ${!backdropSupported ? 'no-backdrop' : ''} ${className}`}
       style={containerStyle}
     >
       <svg className="glass-surface__filter" xmlns="http://www.w3.org/2000/svg">
